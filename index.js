@@ -43,7 +43,7 @@ module.exports = function(options) {
             request(params, function (err, res, body) {
                 if (err) console.log(err);
 
-                realNamedCredits(JSON.parse(body), params.accessToken, function (err, credits) {
+                realNamedCredits(JSON.parse(body), options.accessToken, function (err, credits) {
                     if (err) console.log(err);
 
                     callback(_.sortBy(credits, function(credit) {
