@@ -1,0 +1,17 @@
+{
+  "name": "creditor",
+  "version": "1.0.0",
+  "description": "",
+  "repo": "https://github.com/subsidel/octo-credits",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: that's cute that you thought I would\" && exit 1"
+  },
+  "author": "Joel Howard",
+  "license": "GPL v2",
+  "dependencies": {
+    "express": "^4.12.4",
+    "request": "^2.57.0",
+    "underscore": "^1.8.3"
+  }
+}
