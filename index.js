@@ -53,7 +53,7 @@ module.exports = function(options) {
             });
         },
 
-        formatting: {
+        format: {
             table: function (credits) {
 
                 var htmlTable = [
