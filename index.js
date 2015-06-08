@@ -1,15 +1,14 @@
 var request = require('request');
 var _ = require('underscore');
 
-function realNamedCredits(people, accessToken, callback) {
+function realNamedCredits(people, callback) {
     var countedCallback = _.after(people.length, callback);
     var peopleWithRealNames = [];
 
     people.forEach(function(person) {
-        var url = [person.author.url ,'?access_token=', accessToken].join('');
         var params = {
             headers: {'user-agent': 'node.js'},
-            url: url
+            url: person.author.url
         };
 
         request(params, function(err, res, body) {
@@ -30,23 +29,34 @@ function realNamedCredits(people, accessToken, callback) {
 module.exports = function(options) {
     return {
         retreiveCredits: function (callback) {
+
+            var statsUrl = 'stats/contributors';
+            if(options.accessToken) {
+                statsUrl = [
+                    statsUrl,
+                    '?access_token=',
+                    options.accessToken
+                ].join('');
+            }
+
             var params = {
                 headers: {'user-agent': 'node.js'},
                 url: [
-                    'https://api.github.com/repos/',
+                    'https://api.github.com/repos',
                     options.repo,
-                    '/stats/contributors?access_token=',
-                    options.accessToken
-                ].join('')
+                    statsUrl
+                ].join('/')
             };
 
             request(params, function(err, res, body) {
-                if (err) console.log(err);
+                body = JSON.parse(body);
 
-                realNamedCredits(JSON.parse(body), options.accessToken, function (err, credits) {
-                    if (err) console.log(err);
+                if (err) callback(err);
+                else if(body && body.message === "Not Found") callback(body);
+                else realNamedCredits(body, function (err, credits) {
+                    if (err) callback(err);
 
-                    callback(_.sortBy(credits, function(credit) {
+                    callback(err, _.sortBy(credits, function(credit) {
                         return -credit.commits;
                     }));
                 });

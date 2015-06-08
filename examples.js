@@ -13,7 +13,9 @@ var app = express();
 app.get('/credits', function (req, res) {
     var crediting = creditr(params);
 
-    crediting.retreiveCredits(function(credits) {
+    crediting.retreiveCredits(function(err, credits) {
+        if(err) console.log(err);
+        
         var creditsPage = crediting.format.table(credits);
 
         res.send(creditsPage);
