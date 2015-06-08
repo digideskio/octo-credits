@@ -7,23 +7,26 @@ var params = {
     accessToken: 'an access_token for github'
 };
 
-var creditSystem = creditr(params);
 
-creditSystem.retreiveCredits(function(credits) {
-    var creditsPage = creditSystem.formatting.table(credits);
-    var app = express();
+var app = express();
 
-    app.get('/credits', function (req, res) {
+app.get('/credits', function (req, res) {
+    var crediting = creditr(params);
+
+    crediting.retreiveCredits(function(credits) {
+        var creditsPage = crediting.format.table(credits);
+
         res.send(creditsPage);
-    });
-
-    var server = app.listen(7080, function () {
-
-        var host = server.address().address;
-        var port = server.address().port;
-
-        console.log('Running on http://%s:%s', host, port);
 
     });
+
+});
+
+var server = app.listen(7080, function () {
+
+    var host = server.address().address;
+    var port = server.address().port;
+
+    console.log('Running on http://%s:%s', host, port);
 
 });
