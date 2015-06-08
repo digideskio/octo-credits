@@ -53,42 +53,45 @@ module.exports = function(options) {
             });
         },
 
-        table: function (credits) {
+        formatting: {
+            table: function (credits) {
 
-            var htmlTable = [
-                '<table>',
-                '<thead><td>Commits</td><td>Name</td><td>Photo</td></thead>',
+                var htmlTable = [
+                    '<table>',
+                    '<thead><td>Commits</td><td>Name</td><td>Photo</td></thead>',
 
-                function(){
+                    function(){
 
-                    return credits.map(function(person) {
+                        return credits.map(function(person) {
 
-                        return [
-                            '<tr><td>',
-                            person.commits,
-                            '</td><td>',
-                            '<a href=',person.html_url,'>',
-                            person.name,
-                            '</a>',
-                            '</td><td>',
-                            '<img src=',person.avatar,' width="100" height="100" />',
-                            '</td></tr>'
-                        ].join('');
+                            return [
+                                '<tr><td>',
+                                person.commits,
+                                '</td><td>',
+                                '<a href=',person.html_url,'>',
+                                person.name,
+                                '</a>',
+                                '</td><td>',
+                                '<img src=',person.avatar,' width="100" height="100" />',
+                                '</td></tr>'
+                            ].join('');
 
-                    }).join('');
-                }(),
-                '</table>'
-            ].join('');
+                        }).join('');
+                    }(),
+                    '</table>'
+                ].join('');
 
-            return htmlTable;
-        },
+                return htmlTable;
+            },
 
-        csvNames: function(credits) {
+            csvNames: function(credits) {
 
-            return credits.map(function(person) {
-                return person.name;
-            }).join(', ');
+                return credits.map(function(person) {
+                    return person.name;
+                }).join(', ');
 
+            }
         }
+
     };
 };

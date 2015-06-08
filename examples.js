@@ -10,7 +10,7 @@ var params = {
 var creditSystem = creditr(params);
 
 creditSystem.retreiveCredits(function(credits) {
-    var creditsPage = creditSystem.table(credits);
+    var creditsPage = creditSystem.formatting.table(credits);
     var app = express();
 
     app.get('/credits', function (req, res) {
