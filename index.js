@@ -12,7 +12,7 @@ function realNamedCredits(people, accessToken, callback) {
             url: url
         };
 
-        request(params, function (err, res, body) {
+        request(params, function(err, res, body) {
             if(err) console.log(err);
             body = JSON.parse(body);
             peopleWithRealNames.push({
@@ -40,7 +40,7 @@ module.exports = function(options) {
                 ].join('')
             };
 
-            request(params, function (err, res, body) {
+            request(params, function(err, res, body) {
                 if (err) console.log(err);
 
                 realNamedCredits(JSON.parse(body), options.accessToken, function (err, credits) {
@@ -61,7 +61,7 @@ module.exports = function(options) {
 
                 function(){
 
-                    return credits.map(function (person) {
+                    return credits.map(function(person) {
 
                         return [
                             '<tr><td>',
@@ -81,6 +81,14 @@ module.exports = function(options) {
             ].join('');
 
             return htmlTable;
+        },
+
+        csvNames: function(credits) {
+
+            return credits.map(function(person) {
+                return person.name;
+            }).join(', ');
+
         }
     };
 };
