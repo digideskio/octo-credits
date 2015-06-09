@@ -19,10 +19,8 @@ function realNamedCredits(people, callback, accessToken) {
 
         request(params, function(err, res, body) {
             if(err) console.log(err);
-            console.log(url);
 
             body = JSON.parse(body);
-            console.log(body);
             peopleWithRealNames.push({
                 name: body.name || body.login,
                 commits: person.total,
