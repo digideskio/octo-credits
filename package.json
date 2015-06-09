@@ -6,7 +6,6 @@
         "name": "Joel Howard",
         "email": "joelt.howard@gmail.com"
         }],
-    },
     "description": "",
     "repository": {
         "type": "git",
@@ -25,3 +24,4 @@
         "request": "^2.57.0",
         "underscore": "^1.8.3"
     }
+}
