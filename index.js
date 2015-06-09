@@ -11,14 +11,14 @@ function realNamedCredits(people, callback, accessToken) {
         if(accessToken) url = [person.author.url,'?access_token=',accessToken].join('');
         else url = person.author.url;
 
-
         var params = {
             headers: {'user-agent': 'node.js'},
             url: url
         };
 
         request(params, function(err, res, body) {
-            if(err) console.log(err);
+            if(err) callback(err);
+            else if(body && body.message === "Not Found") callback(body);
 
             body = JSON.parse(body);
             peopleWithRealNames.push({
@@ -59,14 +59,21 @@ module.exports = function(options) {
                 body = JSON.parse(body);
 
                 if (err) callback(err);
-                else if(body && body.message === "Not Found") callback(body);
-                else realNamedCredits(body, function (err, credits) {
-                    if (err) callback(err);
+                else if((body && body.message === "Not Found") ||
+                Object.keys(body).length === 0) {
+                    callback(body);
+                } else {
+                    realNamedCredits(body, function (err, credits) {
+                        if (err) {
+                            callback(err);
+                        } else {
+                            callback(err, _.sortBy(credits, function(credit) {
+                                return -credit.commits;
+                            }));
+                        }
 
-                    callback(err, _.sortBy(credits, function(credit) {
-                        return -credit.commits;
-                    }));
-                }, options.accessToken);
+                    }, options.accessToken);
+                }
             });
         },
 
