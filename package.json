@@ -1,27 +1,29 @@
 {
-    "name": "octo-credits",
-    "version": "3.0.0",
-    "author": "Joel Howard <joelt.howard@gmail.com>",
-    "contributors": [{
-        "name": "Joel Howard",
-        "email": "joelt.howard@gmail.com"
-        }],
-    "description": "",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/subsidel/octo-credits.git"
-    },
-    "bugs": {
-        "url": "https://github.com/subsidel/octo-credits/issues"
-    },
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: that's cute that you thought I would\" && exit 1"
-    },
-    "license": "GPL v2",
-    "dependencies": {
-        "express": "^4.12.4",
-        "request": "^2.57.0",
-        "underscore": "^1.8.3"
+  "name": "octo-credits",
+  "version": "3.0.1",
+  "author": "Joel Howard <joelt.howard@gmail.com>",
+  "contributors": [
+    {
+      "name": "Joel Howard",
+      "email": "joelt.howard@gmail.com"
     }
+  ],
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/subsidel/octo-credits.git"
+  },
+  "bugs": {
+    "url": "https://github.com/subsidel/octo-credits/issues"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: that's cute that you thought I would\" && exit 1"
+  },
+  "license": "GPL v2",
+  "dependencies": {
+    "express": "^4.12.4",
+    "request": "^2.57.0",
+    "underscore": "^1.8.3"
+  }
 }
