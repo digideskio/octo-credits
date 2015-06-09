@@ -1,19 +1,28 @@
 var request = require('request');
 var _ = require('underscore');
 
-function realNamedCredits(people, callback) {
+function realNamedCredits(people, callback, accessToken) {
     var countedCallback = _.after(people.length, callback);
     var peopleWithRealNames = [];
 
     people.forEach(function(person) {
+        var url;
+
+        if(accessToken) url = [person.author.url,'?access_token=',accessToken].join('');
+        else url = person.author.url;
+
+
         var params = {
             headers: {'user-agent': 'node.js'},
-            url: person.author.url
+            url: url
         };
 
         request(params, function(err, res, body) {
             if(err) console.log(err);
+            console.log(url);
+
             body = JSON.parse(body);
+            console.log(body);
             peopleWithRealNames.push({
                 name: body.name || body.login,
                 commits: person.total,
@@ -59,7 +68,7 @@ module.exports = function(options) {
                     callback(err, _.sortBy(credits, function(credit) {
                         return -credit.commits;
                     }));
-                });
+                }, options.accessToken);
             });
         },
 
